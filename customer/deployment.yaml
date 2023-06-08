@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: customer
+  template:
+    metadata:
+      labels:
+        app: customer
+        project: ecommerce
+    spec:
+      containers:
+      - name: customer
+        image: color275/ecommerce-linux:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DBUSER
+          value: "appuser"
+        - name: PASSWORD
+          value: "Appuser12#$"
+        - name: HOST
+          value: "prod-chiholee-smartdba-cluster.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+        - name: PORT
+          value: "3306"
+        - name: DBNAME
+          value: "ecommerce"
+        - name: HOST_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
