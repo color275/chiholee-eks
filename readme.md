@@ -1,3 +1,5 @@
+
+
 ### namespace 를 나누면 service alias 로 통신이 되지 않음
 ```
 cat /etc/resolv.conf
@@ -153,4 +155,5 @@ kubectl describe pod -n kube-system ${ALBPOD}
 ### deployment scale
 ```
 kubectl scale deployment order -n order --replicas=10
+```
 
