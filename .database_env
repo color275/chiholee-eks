@@ -1,0 +1,5 @@
+DBUSER=appuser
+PASSWORD=Appuser12#$
+HOST=prod-chiholee-smartdba-cluster.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com
+PORT=3306
+DBNAME=ecommerce

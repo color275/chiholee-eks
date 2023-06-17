@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order
-  namespace: default
+  namespace: order
 spec:
   replicas: 3
   selector:
@@ -20,17 +20,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: database-env-config
         env:
-        - name: DBUSER
-          value: "appuser"
-        - name: PASSWORD
-          value: "Appuser12#$"
-        - name: HOST
-          value: "prod-chiholee-smartdba-cluster.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-        - name: PORT
-          value: "3306"
-        - name: DBNAME
-          value: "ecommerce"
         - name: HOST_NAME
           valueFrom:
             fieldRef:

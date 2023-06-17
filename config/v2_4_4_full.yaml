@@ -728,7 +728,7 @@ spec:
     spec:
       containers:
       - args:
-        - --cluster-name=chiholee-eks
+        - --cluster-name=chiholee-prod
         - --ingress-class=alb
         image: amazon/aws-alb-ingress-controller:v2.4.4
         livenessProbe:

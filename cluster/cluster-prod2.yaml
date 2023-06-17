@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: chiholee-prod
+  name: chiholee-product
   region: ap-northeast-2
 
 vpc:

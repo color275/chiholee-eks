@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product
-  namespace: default
+  namespace: product
 spec:
   replicas: 5
   selector:
@@ -25,17 +25,10 @@ spec:
             cpu: 250m
           limits:
             cpu: 500m
+        envFrom:
+        - configMapRef:
+            name: database-env-config
         env:
-        - name: DBUSER
-          value: "appuser"
-        - name: PASSWORD
-          value: "Appuser12#$"
-        - name: HOST
-          value: "prod-chiholee-smartdba-cluster.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-        - name: PORT
-          value: "3306"
-        - name: DBNAME
-          value: "ecommerce"
         - name: HOST_NAME
           valueFrom:
             fieldRef:
