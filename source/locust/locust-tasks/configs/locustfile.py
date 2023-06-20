@@ -13,13 +13,13 @@ class MyUser(HttpUser):
         order_id = random.randint(1, 10000)
         response = self.client.get(f"/order/get/{order_id}", name="/order/get/order_id")    
 
-    # @task
-    # def place_order(self):
-    #     params = {
-    #         'customer_id': random.randint(1, 100),
-    #         'product_id': random.randint(1, 20)
-    #     }
-    #     response = self.client.post("/order/pay", params=params, name="/order/make_order")
+    @task
+    def place_order(self):
+        params = {
+            'customer_id': random.randint(1, 100),
+            'product_id': random.randint(1, 20)
+        }
+        response = self.client.post("/order/pay", params=params, name="/order/make_order")
 
     # @task
     # def get_order_recent(self):
