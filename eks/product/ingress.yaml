@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "product"
+  namespace: product
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: product
+    alb.ingress.kubernetes.io/group.order: '1'
+    alb.ingress.kubernetes.io/subnets: subnet-07251a05c91ef4a15,subnet-026db71e8eb67b36c,subnet-092b9af9778a2c97f
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/product
+        pathType: Prefix
+        backend:
+          service:
+            name: "product"
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "product"
+            port:
+              number: 80

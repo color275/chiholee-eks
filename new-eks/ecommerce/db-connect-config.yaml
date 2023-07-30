@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-connect-config
+data:
+  DBUSER: "appuser"
+  PASSWORD: "Appuser12#$"
+  PRIMARY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  READONLY_HOST: "ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  PORT: "3306"
+  DBNAME: "ecommerce"
+

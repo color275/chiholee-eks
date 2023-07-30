@@ -1,0 +1,64 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: ken-cluster
+  region: ap-northeast-2
+  version: "1.23"
+
+vpc:
+  subnets:
+    public:
+      ap-northeast-2a: {id: subnet-07251a05c91ef4a15}
+      ap-northeast-2b: {id: subnet-026db71e8eb67b36c}
+      ap-northeast-2c: {id: subnet-092b9af9778a2c97f}
+    private:
+      ap-northeast-2a: {id: subnet-0f54a2c368df9bdbd}
+      ap-northeast-2b: {id: subnet-0e85458b174743454}
+      ap-northeast-2c: {id: subnet-0394735f5abfa1f17}
+
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+
+managedNodeGroups:
+- name: ken-ng-public-01
+  instanceType: m5.large
+  desiredCapacity: 2
+  volumeSize: 80
+  labels:
+    nodegroup-type: "ken-ng-public-01"
+  subnets:
+  - subnet-07251a05c91ef4a15
+  - subnet-026db71e8eb67b36c
+  - subnet-092b9af9778a2c97f
+  iam:
+    attachPolicyARNs:
+    withAddonPolicies:
+      autoScaler: true
+      cloudWatch: true
+      ebs: true
+      fsx: true
+      efs: true
+  ssh:
+    publicKeyPath: ~/.ssh/id_rsa.pub
+- name: ken-ng-public-02
+  instanceType: m5.large
+  desiredCapacity: 2
+  volumeSize: 80
+  labels:
+    nodegroup-type: "ken-ng-public-02"
+  subnets:
+  - subnet-07251a05c91ef4a15
+  - subnet-026db71e8eb67b36c
+  - subnet-092b9af9778a2c97f
+  iam:
+    attachPolicyARNs:
+    withAddonPolicies:
+      autoScaler: true
+      cloudWatch: true
+      ebs: true
+      fsx: true
+      efs: true
+  ssh:
+    publicKeyPath: ~/.ssh/id_rsa.pub

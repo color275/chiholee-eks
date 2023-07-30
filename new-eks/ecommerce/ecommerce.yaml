@@ -1,0 +1,253 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+        project: ecommerce
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: ken-ng-public-01
+      containers:
+      - name: order
+        image: color275/ecommerce-linux
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        envFrom:
+        - configMapRef:
+            name: db-connect-config
+        env:
+        - name: HOST_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+        project: ecommerce
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: ken-ng-public-01
+      containers:
+      - name: product
+        image: color275/ecommerce-linux
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        envFrom:
+        - configMapRef:
+            name: db-connect-config
+        env:
+        - name: HOST_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: ORDER_SERVICE
+          value: "order"
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer
+  namespace: ecommerce
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: customer
+  template:
+    metadata:
+      labels:
+        app: customer
+        project: ecommerce
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: ken-ng-public-01
+      containers:
+      - name: customer
+        image: color275/ecommerce-linux
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m
+        envFrom:
+        - configMapRef:
+            name: db-connect-config
+        env:
+        - name: HOST_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product
+  namespace: ecommerce
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/product/1"
+spec:
+  type: NodePort
+  selector:
+    app: product
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+  namespace: ecommerce
+spec:
+  type: ClusterIP
+  selector:
+    app: order
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer
+  namespace: ecommerce
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: "/customer/1"
+spec:
+  type: NodePort
+  selector:
+    app: customer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "product"
+  namespace: ecommerce
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: product
+    alb.ingress.kubernetes.io/group.order: '1'
+    alb.ingress.kubernetes.io/subnets: subnet-07251a05c91ef4a15,subnet-026db71e8eb67b36c,subnet-092b9af9778a2c97f
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /product
+        pathType: Prefix
+        backend:
+          service:
+            name: "product"
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "product"
+            port:
+              number: 80
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "customer"
+  namespace: ecommerce
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/group.name: customer
+    alb.ingress.kubernetes.io/group.order: '1'
+    alb.ingress.kubernetes.io/subnets: subnet-07251a05c91ef4a15,subnet-026db71e8eb67b36c,subnet-092b9af9778a2c97f
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /customer
+        pathType: Prefix
+        backend:
+          service:
+            name: "customer"
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "customer"
+            port:
+              number: 80

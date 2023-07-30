@@ -1,0 +1,84 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: locust-worker
+  labels:
+    name: locust-worker
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: locust-worker
+  template:
+    metadata:
+      labels:
+        app: locust-worker
+    spec:
+      volumes:
+      - name: app-config
+        configMap:
+          name: locust-config
+      containers:
+      - name: locust-worker
+        image: color275/locust
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: app-config
+          mountPath: /locustfile
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 250m
+          limits:
+            memory: 128Mi
+            cpu: 500m
+        env:
+        - name: LOCUST_MODE
+          value: worker
+        - name: LOCUST_MASTER
+          value: locust-master
+        - name: TARGET_HOST
+          value: product
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: locust-master
+  labels:
+    name: locust-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locust-master
+  template:
+    metadata:
+      labels:
+        app: locust-master
+    spec:
+      volumes:
+      - name: app-config
+        configMap:
+          name: locust-config
+      containers:
+      - name: locust-master
+        image: color275/locust:latest
+        imagePullPolicy: Always
+        env:
+        - name: LOCUST_MODE
+          value: master
+        - name: TARGET_HOST
+          value: ""
+        ports:
+        - name: loc-master-web
+          containerPort: 8089
+          protocol: TCP
+        - name: loc-master-p1
+          containerPort: 5557
+          protocol: TCP
+        - name: loc-master-p2
+          containerPort: 5558
+          protocol: TCP
+        volumeMounts:
+        - name: app-config
+          mountPath: /locustfile

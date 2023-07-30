@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  mapRoles: |
+    - groups:
+      - system:bootstrappers
+      - system:nodes
+      rolearn: arn:aws:iam::531744930393:role/eksctl-chiholee-cluster-nodegroup-NodeInstanceRole-QHGCMGGXXZ0N
+      username: system:node:{{EC2PrivateDNSName}}
+  mapUsers: ""
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2023-06-03T10:24:25Z"
+  name: aws-auth
+  namespace: kube-system
+  resourceVersion: "31733"
+  uid: 3f477757-d330-490f-9e53-032702900d80
