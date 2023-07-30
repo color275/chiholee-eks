@@ -102,6 +102,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 # export ORDER_SERVICE="localhost"
 # export CUSTOMER_SERVICE="localhost"
 # export PRODUCT_SERVICE="localhost"
+# uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 # uvicorn main:app --port 8000 --reload
 

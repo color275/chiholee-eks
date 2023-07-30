@@ -12,7 +12,7 @@ class MyUser(HttpUser):
     def get_customer(self):
         id = random.randint(1, 100)
         response = self.client.get(f"/customer/get/{id}", name="/customer/get/id")    
-
+    @task
     def get_product(self):
         id = random.randint(1, 100)
         response = self.client.get(f"/product/get/{id}", name="/product/get/id")    
