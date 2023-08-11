@@ -1,5 +1,6 @@
 # FROM python:3.10
 # FROM centos:8
+# FROM color275/python-3-8
 FROM color275/python-3-10
 
 # RUN cd /etc/yum.repos.d/
@@ -28,7 +29,8 @@ WORKDIR /app
 COPY . .
 
 # 해당 명령어를 실행해라
-RUN pip3.10 install -r requirements.txt
+# RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 # opne port 문서화
 EXPOSE 8000
@@ -78,25 +80,26 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 # MAC LOCAL 
 # local 에서 source 기반으로 실행
 # export DBUSER="appuser"
-# export PASSWORD="Appuser12#$"
-# export PRIMARY_HOST="localhost"
-# export READONLY_HOST="localhost"
-# export PORT="3306"
-# export DBNAME="ecommerce"
+# export PASSWORD="appuser12#$"
+# export PRIMARY_HOST="pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
+# export READONLY_HOST="pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
+# export PORT="6432"
+# export DBNAME="template1"
 # export HOST_NAME=$(hostname)
 # export HOST_IP=$(hostname -I | awk '{print $1}')
 # export ORDER_SERVICE="localhost"
 # export CUSTOMER_SERVICE="localhost"
 # export PRODUCT_SERVICE="localhost"
 
+
 # EC2 LOCAL 
 # local 에서 source 기반으로 실행
 # export DBUSER="appuser"
-# export PASSWORD="Appuser12#$"
-# export PRIMARY_HOST="ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-# export READONLY_HOST="ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-# export PORT="3306"
-# export DBNAME="ecommerce"
+# export PASSWORD="appuser12#$"
+# export PRIMARY_HOST="pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
+# export READONLY_HOST="pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
+# export PORT="6432"
+# export DBNAME="template1"
 # export HOST_NAME=$(hostname)
 # export HOST_IP=$(hostname -I | awk '{print $1}')
 # export ORDER_SERVICE="localhost"
