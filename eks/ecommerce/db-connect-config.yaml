@@ -3,18 +3,31 @@ kind: ConfigMap
 metadata:
   name: db-connect-config
 data:
-  ## MySQL
+  # MySQL
+  DBUSER: "appuser"
+  PASSWORD: "Appuser12#$"
+  PRIMARY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  PRIMARY_PORT: "3306"
+  PRIMARY_DBNAME: "ecommerce"
+
+  READONLY_HOST: "ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  READONLY_PORT: "3306"
+  READONLY_DBNAME: "ecommerce"
+
+
+  ## Postgresql
   # DBUSER: "appuser"
   # PASSWORD: "Appuser12#$"
-  # PRIMARY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-  # READONLY_HOST: "ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-  # PORT: "3306"
-  # DBNAME: "ecommerce"
-  ## Postgresql
-  DBUSER: "appuser"
-  PASSWORD: "appuser12#$"
-  PRIMARY_HOST: "pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
-  READONLY_HOST: "pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
-  PORT: "6432"
-  DBNAME: "template1"
+  # PRIMARY_HOST: "ecommerce-postgresql.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  # PRIMARY_PORT: "5432"
+  # PRIMARY_DBNAME: "postgres"
+
+  # READONLY_HOST: "ecommerce-postgresql.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  # READONLY_PORT: "5432"
+  # READONLY_DBNAME: "postgres"
+
+  # READONLY_HOST: "pgbouncer-nlb-07d14cf23a4e020b.elb.ap-northeast-2.amazonaws.com"
+  # READONLY_PORT: "6432"
+  # READONLY_DBNAME: "template1"
+
 

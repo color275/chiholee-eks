@@ -22,6 +22,7 @@ readonly = ReadonlyEngineConn()
 @router.get("/")
 async def get_all(session: Session = Depends(readonly.get_session)):
     result = session.query(Product).all()
+    session.close()
     return result
 
 @router.get("/get/{id}")
@@ -35,6 +36,8 @@ async def get_product(id: int, session: Session = Depends(readonly.get_session))
     product_dict.pop("_sa_instance_state")
 
     product_dict.update(host())
+
+    session.close()
 
     return product_dict
 

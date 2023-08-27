@@ -23,6 +23,7 @@ readonly = ReadonlyEngineConn()
 @router.get("/")
 async def get_all(session: Session = Depends(readonly.get_session)):
     result = session.query(Order).all()
+    session.close()
     return result
 
 
@@ -44,13 +45,13 @@ async def get_order(id: int, session: Session = Depends(readonly.get_session)):
 @router.get("/recent")
 async def get_recent_orders(session: Session = Depends(readonly.get_session)):
     query = """
-        select /* sqlid : order-recent */ o.*, c.name as customer_name, p.name as product_name
-        from orders o
-        join customer c on o.cust_id = c.id
-        join product p on o.prd_id = p.id
-        where o.last_update_time >= date_sub(now(), interval 1 minute)
-        order by o.last_update_time desc
-        limit 20
+select o.*, c.name as customer_name, p.name as product_name
+from orders o
+join customer c on o.cust_id = c.id
+join product p on o.prd_id = p.id
+where o.last_update_time >= now() - interval '1 minute'
+order by o.last_update_time desc
+limit 20
     """
 
     result = session.execute(text(query))
@@ -62,6 +63,7 @@ async def get_recent_orders(session: Session = Depends(readonly.get_session)):
             status_code=404, detail=f"recent 1 minute orders not found")
 
     return_val = create_dict_from_rows(rows, columns)
+    session.close()
 
     return return_val
 
@@ -92,11 +94,11 @@ async def order(customer_id: int, product_id: int, session: Session = Depends(pr
 
     session.add(order)
     session.commit()
-    session.close()
 
     msg = {"message": "Order placed successfully"}
     msg.update(host())
 
+    session.close()
     return msg
 
 @router.put("/update")
@@ -120,14 +122,13 @@ async def update_order(order_id: int, order_cnt: int, order_price: int, session:
 @router.get("/popular")
 async def get_popular_products(session: Session = Depends(readonly.get_session)):
     query = """
-        select /* sqlid : order-popular */ p.id, p.name, count(o.order_cnt) order_cnt
-        from product p,
-            orders o
-        where p.id = o.prd_id
-        and o.last_update_time >= date_sub(now(), interval 10 minute)
-        group by p.id, p.name
-        order by order_cnt desc
-        limit 10
+select p.id, p.name, count(o.order_cnt) as order_cnt
+from product p
+join orders o on p.id = o.prd_id
+where o.last_update_time >= now() - interval '10 minute'
+group by p.id, p.name
+order by order_cnt desc
+limit 10
     """
 
     result = session.execute(text(query))
@@ -139,20 +140,21 @@ async def get_popular_products(session: Session = Depends(readonly.get_session))
     if not return_val:
         raise HTTPException(
             status_code=404, detail="Data not found")
+    
+    session.close()
 
     return return_val
 
 @router.get("/vip")
 async def get_top_vip_customers(session: Session = Depends(readonly.get_session)):
     query = """
-        select /* sqlid : order-vip */ c.id, c.username, count(o.order_cnt) order_cnt
-        from customer c,
-            orders o
-        where c.id = o.prd_id
-        and o.last_update_time >= date_sub(now(), interval 10 minute)
-        group by c.id, c.username
-        order by order_cnt desc
-        limit 10;
+select c.id, c.username, count(o.order_cnt) as order_cnt
+from customer c
+join orders o on c.id = o.cust_id
+where o.last_update_time >= now() - interval '10 minute'
+group by c.id, c.username
+order by order_cnt desc
+limit 10
     """
 
     result = session.execute(text(query))
@@ -164,4 +166,6 @@ async def get_top_vip_customers(session: Session = Depends(readonly.get_session)
     if not return_val:
         raise HTTPException(status_code=404, detail="Data not found")
 
+    session.close()
+    
     return return_val

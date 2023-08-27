@@ -1,3 +1,6 @@
+# eksctl scale nodegroup --cluster=ken-cluster --nodes=10 --name=ken-ng-public-01 --nodes-min=2 --nodes-max=10
+# eksctl scale nodegroup --cluster=ken-cluster --nodes=10 --name=ken-ng-public-02 --nodes-min=2 --nodes-max=10
+
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 

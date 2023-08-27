@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 class MyUser(HttpUser):
     wait_time = between(1, 1)    
+    # wait_time = between(0, 0)
 
     @task
     def get_customer(self):
@@ -20,7 +21,7 @@ class MyUser(HttpUser):
 
     @task
     def get_order_details(self):
-        order_id = random.randint(1, 10000)
+        order_id = random.randint(1, 1000)
         response = self.client.get(f"/order/get/{order_id}", name="/order/get/order_id")    
 
     @task
@@ -40,10 +41,6 @@ class MyUser(HttpUser):
         }
         response = self.client.put("/order/update", params=params, name="/order/update")        
 
-    # @task
-    # def get_order_recent(self):
-    #     hours = random.choice([1,2,3])     
-    #     response = self.client.get(f"/order/recent/{hours}", name=f"/order/recent_{hours}hour")
 
     @task
     def get_order_recent(self):
@@ -56,4 +53,10 @@ class MyUser(HttpUser):
     @task
     def get_popular(self):
         response = self.client.get(f"/order/popular", name=f"/order/popular")
+
+
+
+
+
+
 

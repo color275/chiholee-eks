@@ -22,6 +22,7 @@ readonly = ReadonlyEngineConn()
 @router.get("/")
 async def get_all(session: Session = Depends(readonly.get_session)):
     result = session.query(Customer).all()
+    session.close()
     return result
 
 @router.get("/get/{id}")
@@ -35,5 +36,5 @@ async def get_customer(id: int, session: Session = Depends(readonly.get_session)
     customer_dict.pop("_sa_instance_state")
 
     customer_dict.update(host())
-
+    session.close()
     return customer_dict
