@@ -1,13 +1,16 @@
-# eksctl scale nodegroup --cluster=ken-cluster --nodes=10 --name=ken-ng-public-01 --nodes-min=2 --nodes-max=10
-# eksctl scale nodegroup --cluster=ken-cluster --nodes=10 --name=ken-ng-public-02 --nodes-min=2 --nodes-max=10
+# eksctl scale nodegroup --cluster=ecommerce-eks --nodes=5 --name=ecommerce-ng-public-01 --nodes-min=2 --nodes-max=10
+# eksctl scale nodegroup --cluster=ecommerce-eks --nodes=5 --name=ecommerce-ng-public-02 --nodes-min=2 --nodes-max=10
+
+# eksctl scale nodegroup --cluster=ecommerce-eks --nodes=1 --name=ecommerce-ng-public-01 --nodes-min=1 --nodes-max=2
+# eksctl scale nodegroup --cluster=ecommerce-eks --nodes=1 --name=ecommerce-ng-public-02 --nodes-min=1 --nodes-max=2
 
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: ken-cluster
+  name: ecommerce-eks
   region: ap-northeast-2
-  version: "1.23"
+  version: "1.27"
 
 vpc:
   subnets:
@@ -25,12 +28,12 @@ cloudWatch:
     enableTypes: ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 
 managedNodeGroups:
-- name: ken-ng-public-01
+- name: ecommerce-ng-public-01
   instanceType: m5.large
   desiredCapacity: 2
   volumeSize: 80
   labels:
-    nodegroup-type: "ken-ng-public-01"
+    nodegroup-type: "ecommerce-ng-public-01"
   subnets:
   - subnet-07251a05c91ef4a15
   - subnet-026db71e8eb67b36c
@@ -45,12 +48,12 @@ managedNodeGroups:
       efs: true
   ssh:
     publicKeyPath: ~/.ssh/id_rsa.pub
-- name: ken-ng-public-02
+- name: ecommerce-ng-public-02
   instanceType: m5.large
   desiredCapacity: 2
   volumeSize: 80
   labels:
-    nodegroup-type: "ken-ng-public-02"
+    nodegroup-type: "ecommerce-ng-public-02"
   subnets:
   - subnet-07251a05c91ef4a15
   - subnet-026db71e8eb67b36c

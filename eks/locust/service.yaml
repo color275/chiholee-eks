@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: locust-master
+  namespace: locust
   labels:
     app: locust-master
 spec:
@@ -21,6 +22,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: locust-master-web
+  namespace: locust
   annotations:
     alb.ingress.kubernetes.io/healthcheck-path: "/"
   labels:

@@ -1,0 +1,21 @@
+cookie:
+  expiry_days: 30
+  key: random_signature_key
+  name: random_cookie_name
+credentials:
+  usernames:
+    chiho:
+      email: color275@gmail.com
+      name: chiho
+      password: $2b$12$WrUnpV5VCsetF6mYmJVsOuvdI8vcfn20QhTdyu5i4EYcaShhJ8Dxy
+    ken:
+      email: jsmith@gmail.com
+      name: John Smith
+      password: $2b$12$M/eaeCh9QzFnJjHhFkaxdeMDEy/l.zopyAOE1rWh1pgePcYM75lt.
+    rbriggs:
+      email: rbriggs@gmail.com
+      name: Rebecca Briggs
+      password: $2b$12$r1N6adtqLXDrVdSsnSTJsOV.h6.d0Ut/8bQXRb.UqQCoQxKtiY79W
+preauthorized:
+  emails:
+  - melsby@gmail.com

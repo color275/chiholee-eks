@@ -1,0 +1,11 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": ["es:ESHttpGet"],
+            "Resource": "arn:aws:es:ap-northeast-2:531744930393:domain/chiholee-opensearch"
+        }
+    ]
+}

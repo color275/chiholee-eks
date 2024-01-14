@@ -20,13 +20,13 @@ primary = PrimaryEngineConn()
 readonly = ReadonlyEngineConn()
 
 @router.get("/")
-async def get_all(session: Session = Depends(readonly.get_session)):
+async def get_all(login_id: int, session: Session = Depends(readonly.get_session)):
     result = session.query(Product).all()
     return result
 
-@router.get("/get/{id}")
-async def get_product(id: int, session: Session = Depends(readonly.get_session)):
-    product = session.query(Product).filter(Product.id == id).first()
+@router.get("/get")
+async def get_product(login_id: int, product_id: int, session: Session = Depends(readonly.get_session)):
+    product = session.query(Product).filter(Product.id == product_id).first()
 
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")

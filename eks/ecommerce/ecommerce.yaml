@@ -15,10 +15,10 @@ spec:
         project: ecommerce
     spec:
       nodeSelector:
-        eks.amazonaws.com/nodegroup: ken-ng-public-01
+        karpenter.sh/capacity-type: spot
       containers:
       - name: order
-        image: color275/ecommerce-linux
+        image: color275/ecommerce-linux:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -48,7 +48,7 @@ metadata:
   name: product
   namespace: ecommerce
 spec:
-  replicas: 1
+  replicas: 10
   selector:
     matchLabels:
       app: product
@@ -59,10 +59,10 @@ spec:
         project: ecommerce
     spec:
       nodeSelector:
-        eks.amazonaws.com/nodegroup: ken-ng-public-01
+        karpenter.sh/capacity-type: spot
       containers:
       - name: product
-        image: color275/ecommerce-linux
+        image: color275/ecommerce-linux:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -106,10 +106,10 @@ spec:
         project: ecommerce
     spec:
       nodeSelector:
-        eks.amazonaws.com/nodegroup: ken-ng-public-01
+        karpenter.sh/capacity-type: spot
       containers:
       - name: customer
-        image: color275/ecommerce-linux
+        image: color275/ecommerce-linux:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
@@ -139,7 +139,7 @@ metadata:
   name: product
   namespace: ecommerce
   annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: "/product/1"
+    alb.ingress.kubernetes.io/healthcheck-path: "/product/get/1"
 spec:
   type: NodePort
   selector:
@@ -174,7 +174,7 @@ metadata:
   name: customer
   namespace: ecommerce
   annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: "/customer/1"
+    alb.ingress.kubernetes.io/healthcheck-path: "/customer/get/1"
 spec:
   type: NodePort
   selector:

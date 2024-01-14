@@ -7,8 +7,15 @@ PROUDCT_SERVICE = os.getenv("PROUDCT_SERVICE")
 CUSTOMER_SERVICE = os.getenv("CUSTOMER_SERVICE")
 
 def host():    
-    container_hostname = socket.gethostname()    
-    container_ip = socket.gethostbyname(container_hostname)
+    
+    container_hostname = None
+    container_ip = None
+
+    try :
+        container_hostname = socket.gethostname()    
+        container_ip = socket.gethostbyname(container_hostname)
+    except :
+        pass
     host_ip = os.environ.get('HOST_IP')
     host_name = os.environ.get('HOST_NAME')
     

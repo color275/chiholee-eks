@@ -1,0 +1,33 @@
+cookie:
+  expiry_days: 30
+  key: random_signature_key
+  name: random_cookie_name
+credentials:
+  usernames:
+    abc:
+      email: abc@fdas.com
+      name: asdf
+      password: $2b$12$szczcbMdLsiuISmEk71u9OsuAT/s6wFmIBU.zDInrRosWEPMVtG1y
+    chiho:
+      email: color275@gmail.com
+      name: chiho
+      password: $2b$12$vse7G56yQ37AQkuK8qB1F.6W4aJgjNTItlJXMW5/ypyZhN0Xfo6je
+    dfa:
+      email: fdsf@saf.com
+      name: adf
+      password: $2b$12$lAWMlyGTrGG4DJ.E4utVcuyuVfEUzbgy9.s7.3j1KFlndRRX/3Zti
+    dsaf:
+      email: dfas@dsaf.com
+      name: sdaf
+      password: $2b$12$eSwmm8zbUSR58MTx54Kl8O4iuw.JPm4PjC87uaIZGhVC1VxE2QiRC
+    ken:
+      email: jsmith@gmail.com
+      name: John Smith
+      password: $2b$12$M/eaeCh9QzFnJjHhFkaxdeMDEy/l.zopyAOE1rWh1pgePcYM75lt.
+    rbriggs:
+      email: rbriggs@gmail.com
+      name: Rebecca Briggs
+      password: $2b$12$r1N6adtqLXDrVdSsnSTJsOV.h6.d0Ut/8bQXRb.UqQCoQxKtiY79W
+preauthorized:
+  emails:
+  - melsby@gmail.com

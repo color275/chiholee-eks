@@ -2,18 +2,17 @@ apiVersion: karpenter.sh/v1alpha5
 kind: Provisioner
 metadata:
   name: provisioner1
-  namespace: karpenter-inflate
 spec:
   requirements:
-  - key: karpenter.sh/capacity-type
-    operator: In
-    values: ["spot"]
+    - key: karpenter.sh/capacity-type
+      operator: In
+      values: ["spot"]
   limits:
     resources:
       cpu: 1000
   provider:
     subnetSelector:
-      karpenter.sh/discovery: ken-cluster
+      karpenter.sh/discovery: ecommerce-eks
     securityGroupSelector:
-      karpenter.sh/discovery: ken-cluster
+      karpenter.sh/discovery: ecommerce-eks
   ttlSecondsAfterEmpty: 30

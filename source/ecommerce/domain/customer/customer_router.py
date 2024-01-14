@@ -20,13 +20,13 @@ primary = PrimaryEngineConn()
 readonly = ReadonlyEngineConn()
 
 @router.get("/")
-async def get_all(session: Session = Depends(readonly.get_session)):
+async def get_all(login_id: int, session: Session = Depends(readonly.get_session)):
     result = session.query(Customer).all()
     return result
 
-@router.get("/get/{id}")
-async def get_customer(id: int, session: Session = Depends(readonly.get_session)):
-    customer = session.query(Customer).filter(Customer.id == id).first()
+@router.get("/get")
+async def get_customer(login_id: int, customer_id: int, session: Session = Depends(readonly.get_session)):
+    customer = session.query(Customer).filter(Customer.id == customer_id).first()
 
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")

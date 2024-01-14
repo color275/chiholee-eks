@@ -21,14 +21,14 @@ readonly = ReadonlyEngineConn()
 
 
 @router.get("/")
-async def get_all(session: Session = Depends(readonly.get_session)):
+async def get_all(login_id: int, session: Session = Depends(readonly.get_session)):
     result = session.query(Order).all()
     return result
 
 
-@router.get("/get/{id}")
-async def get_order(id: int, session: Session = Depends(readonly.get_session)):
-    order = session.query(Order).filter(Order.id == id).first()
+@router.get("/get")
+async def get_order(login_id: int, order_id: int, session: Session = Depends(readonly.get_session)):
+    order = session.query(Order).filter(Order.id == order_id).first()
 
     if not order:
         raise HTTPException(status_code=404, detail="Data not found")
@@ -42,7 +42,7 @@ async def get_order(id: int, session: Session = Depends(readonly.get_session)):
 
 
 @router.get("/recent")
-async def get_recent_orders(session: Session = Depends(readonly.get_session)):
+async def get_recent_orders(login_id: int, session: Session = Depends(readonly.get_session)):
     query = """
         select /* sqlid : order-recent */ o.*, c.name as customer_name, p.name as product_name
         from orders o
@@ -67,7 +67,7 @@ async def get_recent_orders(session: Session = Depends(readonly.get_session)):
 
 
 @router.post("/pay")
-async def order(customer_id: int, product_id: int, session: Session = Depends(primary.get_session)):
+async def order(login_id: int, customer_id: int, product_id: int, session: Session = Depends(primary.get_session)):
     customer = session.query(Customer).filter(
         Customer.id == customer_id).first()
     product = session.query(Product).filter(Product.id == product_id).first()
@@ -100,7 +100,7 @@ async def order(customer_id: int, product_id: int, session: Session = Depends(pr
     return msg
 
 @router.put("/update")
-async def update_order(order_id: int, order_cnt: int, order_price: int, session: Session = Depends(primary.get_session)):
+async def update_order(login_id: int, order_id: int, order_cnt: int, order_price: int, session: Session = Depends(primary.get_session)):
     # 주문 조회
     order = session.query(Order).filter(Order.id == order_id).first()
     if not order:
@@ -118,7 +118,7 @@ async def update_order(order_id: int, order_cnt: int, order_price: int, session:
 
 
 @router.get("/popular")
-async def get_popular_products(session: Session = Depends(readonly.get_session)):
+async def get_popular_products(login_id: int, session: Session = Depends(readonly.get_session)):
     query = """
         select /* sqlid : order-popular */ p.id, p.name, count(o.order_cnt) order_cnt
         from product p,
@@ -143,7 +143,7 @@ async def get_popular_products(session: Session = Depends(readonly.get_session))
     return return_val
 
 @router.get("/vip")
-async def get_top_vip_customers(session: Session = Depends(readonly.get_session)):
+async def get_top_vip_customers(login_id: int, session: Session = Depends(readonly.get_session)):
     query = """
         select /* sqlid : order-vip */ c.id, c.username, count(o.order_cnt) order_cnt
         from customer c,

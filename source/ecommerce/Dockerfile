@@ -39,8 +39,9 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 
 # docker build -t color275/ecommerce-linux --platform linux/amd64 .
-# docker build --no-cache -t color275/ecommerce-linux --platform linux/amd64 .
 # docker push color275/ecommerce-linux
+
+# docker build --no-cache -t color275/ecommerce-linux --platform linux/amd64 .
 # docker pull color275/ecommerce-linux
 
 # docker exec -it ecommerce bash
@@ -54,35 +55,41 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 # HOST_IP=$(hostname -I | awk '{print $1}')
 # HOST_NAME=$(hostname)
 # cat <<EOF> .env
-# DBUSER=appuser
-# PASSWORD=Appuser12#$
+# DBUSER=testuser
+# PASSWORD=testuser
 # PRIMARY_HOST=host.docker.internal
 # READONLY_HOST=host.docker.internal
-# PORT=3306
-# DBNAME=ecommerce
+# PRIMARY_PORT=3306
+# READONLY_PORT=3306
+# PRIMARY_DBNAME="ecommerce"
+# READONLY_DBNAME="ecommerce"
 # EOF
 # echo "HOST_IP=${HOST_IP}" >> .env
 # echo "HOST_NAME=${HOST_NAME}" >> .env
 
 # LOCAL DOCKER
 # docker 통해 mac local 에서 실행
-# export DBUSER="appuser"
-# export PASSWORD="Appuser12#$"
+# export DBUSER="testuser"
+# export PASSWORD="testuser"
 # export PRIMARY_HOST="host.docker.internal"
 # export READONLY_HOST="host.docker.internal"
-# export PORT="3306"
-# export DBNAME="ecommerce"
+# export PRIMARY_PORT=3306
+# export READONLY_PORT=3306
+# export PRIMARY_DBNAME="ecommerce"
+# export READONLY_DBNAME="ecommerce"
 # export HOST_NAME=$(hostname)
 # export HOST_IP=$(hostname -I | awk '{print $1}')
 
 # MAC LOCAL 
 # local 에서 source 기반으로 실행
-# export DBUSER="appuser"
-# export PASSWORD="Appuser12#$"
+# export DBUSER="testuser"
+# export PASSWORD="testuser"
 # export PRIMARY_HOST="localhost"
 # export READONLY_HOST="localhost"
-# export PORT="3306"
-# export DBNAME="ecommerce"
+# export PRIMARY_PORT=3306
+# export READONLY_PORT=3306
+# export PRIMARY_DBNAME="ecommerce"
+# export READONLY_DBNAME="ecommerce"
 # export HOST_NAME=$(hostname)
 # export HOST_IP=$(hostname -I | awk '{print $1}')
 # export ORDER_SERVICE="localhost"
@@ -91,12 +98,14 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # EC2 LOCAL 
 # local 에서 source 기반으로 실행
-# export DBUSER="appuser"
-# export PASSWORD="Appuser12#$"
+# export DBUSER="testuser"
+# export PASSWORD="testuser"
 # export PRIMARY_HOST="ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
 # export READONLY_HOST="ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
-# export PORT="3306"
-# export DBNAME="ecommerce"
+# export PRIMARY_PORT=3306
+# export READONLY_PORT=3306
+# export PRIMARY_DBNAME="ecommerce"
+# export READONLY_DBNAME="ecommerce"
 # export HOST_NAME=$(hostname)
 # export HOST_IP=$(hostname -I | awk '{print $1}')
 # export ORDER_SERVICE="localhost"
