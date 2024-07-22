@@ -11,20 +11,20 @@ kubectl get configmap db-connect-config -n ecommerce -o yaml
 kubectl delete po --all -n ecommerce
 kubectl apply -f ecommerce.yaml
 kubectl get pod -n ecommerce
-![](2024-07-22-17-22-44.png)
+![](./img/2024-07-22-17-22-44.png)
 
 kubectl -n ecommerce get all
-![](2024-07-22-17-23-07.png)
+![](./img/2024-07-22-17-23-07.png)
 
 
 kubectl -n ecommerce get ingress
-![](2024-07-22-17-58-54.png)
+![](./img/2024-07-22-17-58-54.png)
 
 
 ingress 관련 log
 kubectl get pods --all-namespaces
 kubectl logs aws-load-balancer-controller-6ff97cb4c6-6wnm5  -n kube-system
-![](2024-07-22-17-58-10.png)
+![](./img/2024-07-22-17-58-10.png)
 
 
 pods 관련 log

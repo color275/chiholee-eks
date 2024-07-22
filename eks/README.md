@@ -7,9 +7,9 @@
 # cluster.yaml 에 cluster id, subnet id 수정
 eksctl create cluster --config-file=cluster.yaml
 ```
-![](2024-07-22-14-48-36.png)
-![](2024-07-22-14-49-38.png)
-![](2024-07-22-14-50-08.png)
+![](./img/2024-07-22-14-48-36.png)
+![](./img/2024-07-22-14-49-38.png)
+![](./img/2024-07-22-14-50-08.png)
 
 
 # AWS Ingress 생성
@@ -88,4 +88,4 @@ metadata:
 설치
 kubectl apply -f v2_5_2_full.yaml
 kubectl -n kube-system get pods | grep balancer
-![](2024-07-22-17-08-57.png)
+![](./img/2024-07-22-17-08-57.png)
