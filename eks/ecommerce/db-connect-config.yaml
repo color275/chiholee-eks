@@ -4,11 +4,11 @@ metadata:
   name: db-connect-config
 data:
   # MySQL
-  DBUSER: "appuser"
-  PASSWORD: "Appuser12#$"
+  DBUSER: "admin"
+  PASSWORD: "Admin1234"
 
   # cluster endpoint
-  PRIMARY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  PRIMARY_HOST: "ken.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
 
   # PRIMARY_HOST: "aurora-mysql-5-7-instance-1.cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
 
@@ -19,7 +19,7 @@ data:
   PRIMARY_DBNAME: "ecommerce"
 
   # cluster endpoint
-  READONLY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  READONLY_HOST: "ken.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
 
   # read proxy
   # READONLY_HOST: "ecommerce-read-only.endpoint.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"

@@ -1,3 +1,7 @@
+# eksctl로 cluster 만들기 
+# eksctl create cluster --config-file=cluster.yaml
+
+
 # eksctl scale nodegroup --cluster=ecommerce-eks --nodes=5 --name=ecommerce-ng-public-01 --nodes-min=2 --nodes-max=10
 # eksctl scale nodegroup --cluster=ecommerce-eks --nodes=5 --name=ecommerce-ng-public-02 --nodes-min=2 --nodes-max=10
 
@@ -8,20 +12,18 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: ecommerce-eks
+  name: ecommerce01
   region: ap-northeast-2
-  version: "1.27"
+  version: "1.26"
 
 vpc:
   subnets:
     public:
-      ap-northeast-2a: {id: subnet-07251a05c91ef4a15}
-      ap-northeast-2b: {id: subnet-026db71e8eb67b36c}
-      ap-northeast-2c: {id: subnet-092b9af9778a2c97f}
+      ap-northeast-2a: {id: subnet-0aaf0c46a8c210228}
+      ap-northeast-2b: {id: subnet-08a7bfd4ff6b4480e}
     private:
-      ap-northeast-2a: {id: subnet-0f54a2c368df9bdbd}
-      ap-northeast-2b: {id: subnet-0e85458b174743454}
-      ap-northeast-2c: {id: subnet-0394735f5abfa1f17}
+      ap-northeast-2a: {id: subnet-05fef71a68f0520a7}
+      ap-northeast-2b: {id: subnet-033906e680ab0861e}
 
 cloudWatch:
   clusterLogging:
@@ -35,9 +37,8 @@ managedNodeGroups:
   labels:
     nodegroup-type: "ecommerce-ng-public-01"
   subnets:
-  - subnet-07251a05c91ef4a15
-  - subnet-026db71e8eb67b36c
-  - subnet-092b9af9778a2c97f
+  - subnet-0aaf0c46a8c210228
+  - subnet-08a7bfd4ff6b4480e
   iam:
     attachPolicyARNs:
     withAddonPolicies:
@@ -55,9 +56,8 @@ managedNodeGroups:
   labels:
     nodegroup-type: "ecommerce-ng-public-02"
   subnets:
-  - subnet-07251a05c91ef4a15
-  - subnet-026db71e8eb67b36c
-  - subnet-092b9af9778a2c97f
+  - subnet-0aaf0c46a8c210228
+  - subnet-08a7bfd4ff6b4480e
   iam:
     attachPolicyARNs:
     withAddonPolicies:

@@ -26,7 +26,7 @@ async def get_all(login_id: int, session: Session = Depends(readonly.get_session
 
 @router.get("/get")
 async def get_product(login_id: int, product_id: int, session: Session = Depends(readonly.get_session)):
-    product = session.query(Product).filter(Product.id == product_id).first()
+    product = session.query(Product).filter(Product.product_id == product_id).first()
 
     if not product:
         raise HTTPException(status_code=404, detail="Product not found")

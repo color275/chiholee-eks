@@ -42,7 +42,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 # docker push color275/ecommerce-linux
 
 # docker build --no-cache -t color275/ecommerce-linux --platform linux/amd64 .
-# docker pull color275/ecommerce-linux
+# docker push color275/ecommerce-linux
 
 # docker exec -it ecommerce bash
 
@@ -69,12 +69,12 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # LOCAL DOCKER
 # docker 통해 mac local 에서 실행
-# export DBUSER="testuser"
-# export PASSWORD="testuser"
-# export PRIMARY_HOST="host.docker.internal"
-# export READONLY_HOST="host.docker.internal"
-# export PRIMARY_PORT=3306
-# export READONLY_PORT=3306
+# export DBUSER="admin"
+# export PASSWORD="Admin1234"
+# export PRIMARY_HOST="0.0.0.0"
+# export READONLY_HOST="0.0.0.0"
+# export PRIMARY_PORT=33061
+# export READONLY_PORT=33061
 # export PRIMARY_DBNAME="ecommerce"
 # export READONLY_DBNAME="ecommerce"
 # export HOST_NAME=$(hostname)

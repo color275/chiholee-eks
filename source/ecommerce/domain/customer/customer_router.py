@@ -26,7 +26,7 @@ async def get_all(login_id: int, session: Session = Depends(readonly.get_session
 
 @router.get("/get")
 async def get_customer(login_id: int, customer_id: int, session: Session = Depends(readonly.get_session)):
-    customer = session.query(Customer).filter(Customer.id == customer_id).first()
+    customer = session.query(Customer).filter(Customer.customer_id == customer_id).first()
 
     if not customer:
         raise HTTPException(status_code=404, detail="Customer not found")

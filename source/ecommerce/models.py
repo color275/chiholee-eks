@@ -1,4 +1,4 @@
-from sqlalchemy import Column, BigInteger, Text, Integer, DateTime, String
+from sqlalchemy import Column, BigInteger, Text, Integer, DateTime, String, TIMESTAMP, func
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
@@ -6,42 +6,42 @@ Base = declarative_base()
 class Order(Base):
     __tablename__ = "orders"
 
-    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
-    promo_id = Column(Text)
+    order_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    promo_id = Column(String(255), default=None)
     order_cnt = Column(Integer, nullable=False)
     order_price = Column(Integer, nullable=False)
-    order_dt = Column(Text, nullable=False)
-    last_update_time = Column(DateTime, nullable=False)
-    cust_id = Column(BigInteger, nullable=False)
-    prd_id = Column(Integer, nullable=False)
+    order_dt = Column(String(255), nullable=False)
+    last_update_time = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
+    customer_id = Column(Integer, nullable=False)
+    product_id = Column(Integer, nullable=False)
 
 class Customer(Base):
     __tablename__ = "customer"
 
-    id = Column(BigInteger, primary_key=True, nullable=False, autoincrement=True)
-    password = Column(Text, nullable=False)
-    last_login = Column(DateTime)
+    customer_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    password = Column(String(128), nullable=False)
+    last_login = Column(TIMESTAMP, default=None)
     is_superuser = Column(Integer, nullable=False)
-    username = Column(Text, unique=True, nullable=False)
-    first_name = Column(Text, nullable=False)
-    last_name = Column(Text, nullable=False)
-    email = Column(Text, nullable=False)
+    username = Column(String(150), unique=True, nullable=False)
+    first_name = Column(String(150), nullable=False)
+    last_name = Column(String(150), nullable=False)
+    email = Column(String(254), nullable=False)
     is_staff = Column(Integer, nullable=False)
     is_active = Column(Integer, nullable=False)
-    date_joined = Column(DateTime, nullable=False)
-    phone_number = Column(Text)
-    age = Column(Integer)
-    gender = Column(Text)
-    address = Column(Text)
-    last_update_time = Column(DateTime, nullable=False)
-    name = Column(Text)
+    date_joined = Column(TIMESTAMP, nullable=False)
+    phone_number = Column(String(20), default=None)
+    age = Column(Integer, default=None)
+    gender = Column(String(10), default=None)
+    address = Column(String(200), default=None)
+    last_update_time = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
+    name = Column(String(255), default=None)
 
 class Product(Base):
     __tablename__ = "product"
 
-    id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
+    product_id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     name = Column(String(255), nullable=False)
-    img_path = Column(String(255))
-    category = Column(String(255))
+    img_path = Column(String(255), default=None)
+    category = Column(String(255), default=None)
     price = Column(Integer, nullable=False)
-    last_update_time = Column(DateTime, nullable=False)    
+    last_update_time = Column(TIMESTAMP, nullable=False, server_default=func.current_timestamp())
