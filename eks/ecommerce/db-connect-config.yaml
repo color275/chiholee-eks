@@ -6,11 +6,29 @@ data:
   # MySQL
   DBUSER: "appuser"
   PASSWORD: "Appuser12#$"
-  PRIMARY_HOST: "ecommerce.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+  # cluster endpoint
+  PRIMARY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+  # PRIMARY_HOST: "aurora-mysql-5-7-instance-1.cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+  # writer proxy
+  # PRIMARY_HOST: "ecommerce.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
   PRIMARY_PORT: "3306"
   PRIMARY_DBNAME: "ecommerce"
 
-  READONLY_HOST: "ecommerce-read-only.endpoint.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  # cluster endpoint
+  READONLY_HOST: "ecommerce.cluster-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+  # read proxy
+  # READONLY_HOST: "ecommerce-read-only.endpoint.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+  # READONLY_HOST: "ecommerce.cluster-ro-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  # READONLY_HOST: "aurora-mysql-5-7-instance-1.cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+  # READONLY_HOST: "ecommerce.proxy-cgkgybnzurln.ap-northeast-2.rds.amazonaws.com"
+
+
   READONLY_PORT: "3306"
   READONLY_DBNAME: "ecommerce"
 

@@ -42,6 +42,16 @@ config:
         delivery_stream ecommerce-accesslog-fluentbit-to-s3-parquet
         workers 2
 
+    [OUTPUT]
+        Name           kafka
+        Match          *
+        Brokers        b-3.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-4.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9092,b-6.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9092
+        Topics         accesslog
+        Timestamp_Key  @timestamp
+        Retry_Limit    false
+        rdkafka.log.connection.close false
+        rdkafka.queue.buffering.max.kbytes 10240
+        rdkafka.request.required.acks 1
 
 # [OUTPUT]
 #     Name cloudwatch_logs
@@ -79,16 +89,6 @@ config:
   #     compression                  gzip
   #     s3_key_format                /ecommerce-fluentbit-accesslog/%Y/%m/%d/%H_%M_%S.gz
 
-  # [OUTPUT]
-  #     Name           kafka
-  #     Match          *
-  #     Brokers        b-4.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9098,b-2.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9098,b-6.chiholeemsk.xmm8ve.c2.kafka.ap-northeast-2.amazonaws.com:9098
-  #     Topics         accesslog
-  #     Timestamp_Key  @timestamp
-  #     Retry_Limit    false
-  #     rdkafka.log.connection.close false
-  #     rdkafka.queue.buffering.max.kbytes 10240
-  #     rdkafka.request.required.acks 1
 
   ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers
   ## This configuration is deprecated, please use `extraFiles` instead.

@@ -83,26 +83,39 @@ class MyUser(HttpUser):
         response = self.client.put("/order/update", params=params, name="/order/update")        
 
 
-    # @task
-    # def get_order_recent(self):
-    #     params = {
-    #         'login_id': random.randint(1, 100)
-    #     }
-    #     response = self.client.get(f"/order/recent", params=params, name=f"/order/recent")
+    @task(1)
+    def get_order_recent(self):
+        params = {
+            'login_id': random.randint(1, 100),
+            'minute': random.randint(1, 20)
+        }
+        response = self.client.get(f"/order/recent", params=params, name=f"/order/recent")
 
-    # @task
-    # def get_vip(self):
-    #     params = {
-    #         'login_id': random.randint(1, 100)
-    #     }
-    #     response = self.client.get(f"/order/vip", params=params, name=f"/order/vip")
+    @task(1)
+    def get_vip(self):
+        params = {
+            'login_id': random.randint(1, 100),
+            'minute': random.randint(1, 20)
+        }
+        response = self.client.get(f"/order/vip", params=params, name=f"/order/vip")
 
-    # @task
-    # def get_popular(self):
-    #     params = {
-    #         'login_id': random.randint(1, 100)
-    #     }
-    #     response = self.client.get(f"/order/popular", params=params, name=f"/order/popular")
+    @task(1)
+    def get_popular(self):
+        params = {
+            'login_id': random.randint(1,
+                                        100),
+            'minute': random.randint(1, 20)
+        }
+        response = self.client.get(f"/order/popular", params=params, name=f"/order/popular")
+
+
+    @task(1)
+    def get_sql(self):
+
+        params = {
+            'sql_id': random.randint(0, 99)
+        }
+        response = self.client.get(f"/order/sql", params=params, name=f"/order/sql")
 
 
 
