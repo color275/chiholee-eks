@@ -1,5 +1,4 @@
 
-
 # 순서
 
 - AWS 셋업 (VPC, SG, RDS, IAM 등)
