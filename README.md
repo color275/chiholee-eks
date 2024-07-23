@@ -11,5 +11,5 @@
 - EKS 셋업
   - [eks](https://github.com/color275/chiholee-eks/tree/ca49487eed78de8dc49a2d1f54ed46d714187ec5/eks)
 
-- EKS 에 APP Deploy
+- EKS에 APP Deploy
   - [eks/ecommerce](https://github.com/color275/chiholee-eks/tree/ca49487eed78de8dc49a2d1f54ed46d714187ec5/eks/ecommerce)
