@@ -9,7 +9,7 @@
   - [source/ecommerce](https://github.com/color275/chiholee-eks/tree/ca49487eed78de8dc49a2d1f54ed46d714187ec5/source/ecommerce)
 
 - EKS 셋업
-  - [eks](https://github.com/color275/chiholee-eks/tree/ca49487eed78de8dc49a2d1f54ed46d714187ec5/eks)
+  - [eks/eks_cluster](https://github.com/color275/chiholee-eks/tree/23949cf03ff0b60e313a1987d4dea37f793931f4/eks/eks_cluster)
 
 - EKS에 APP Deploy
   - [eks/ecommerce](https://github.com/color275/chiholee-eks/tree/ca49487eed78de8dc49a2d1f54ed46d714187ec5/eks/ecommerce)
