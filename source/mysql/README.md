@@ -1,5 +1,11 @@
+- [Local MAC MySQL 셋업 및 환경 구성](#local-mac-mysql-셋업-및-환경-구성)
+- [AWS Aurora 셋업 및 환경 구성](#aws-aurora-셋업-및-환경-구성)
 
 
+
+# Local MAC MySQL 셋업 및 환경 구성
+
+docker 실행
 ```bash
 docker-compose up -d
 docker ps -a
@@ -16,7 +22,7 @@ grant all privileges on ecommerce.* to admin@'%';
 ```
 ![](./img/2024-07-22-14-43-45.png)
 
-admin 으로 접속
+admin 계정으로 접속
 ```bash
 # pw : Admin1234
 docker exec -it mysql mysql -uadmin -D ecommerce -p
@@ -33,23 +39,26 @@ DBeaver 접속하여 어플리케이션에서 사용할 테이블 생성 (sample
 ![](./img/2024-07-22-14-46-00.png)
 ![](./img/2024-07-22-15-09-10.png)
 
-# RDS Aurora 접속 및 환경 구성
-../iac/ 실행 후
-rds sg 에 ec2 sg 허용
-![](./img/2024-07-22-16-12-53.png)
+# AWS Aurora 셋업 및 환경 구성
+EKS 에서 사용할 AWS Aurora 구성
+> [!TIP]
+> ../iac/ 선 설행 필요
 
-eks cluster 도 sg 허용
-![](./img/2024-07-22-16-50-45.png)
+보안 그룹 셋텡
+- rds sg 에 ec2 sg 허용
+  ![](./img/2024-07-22-16-12-53.png)
+- eks cluster 도 sg 허용
+  ![](./img/2024-07-22-16-50-45.png)
 
 
-admin 패스워드 변경 (-> Admin1234 로 변경)
+AWS Aurora Console 에서 admin user의 패스워드 변경 (-> Admin1234 로 변경)
 ![](./img/2024-07-22-16-06-13.png)
 ![](./img/2024-07-22-16-07-08.png)
 ![](./img/2024-07-22-16-09-45.png)
 ![](./img/2024-07-22-16-10-13.png)
 ![](./img/2024-07-22-16-13-46.png)
 
-아래 sql를 통해 데이터베이스 및 테이블 생성
+아래 SQL를 통해 데이터베이스 및 테이블 생성
 <details>
 
 <summary>create table</summary>
@@ -125,3 +134,5 @@ INSERT INTO product (product_id, name, img_path, category, price, last_update_ti
 ```
 
 </details>
+
+![](2024-07-23-10-35-24.png)
