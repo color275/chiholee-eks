@@ -9,7 +9,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: locust-master-web
     alb.ingress.kubernetes.io/group.order: '1'
-    alb.ingress.kubernetes.io/subnets: subnet-07251a05c91ef4a15,subnet-026db71e8eb67b36c,subnet-092b9af9778a2c97f
+    alb.ingress.kubernetes.io/subnets: subnet-0aaf0c46a8c210228,subnet-08a7bfd4ff6b4480e
 spec:
   rules:
   - http:
