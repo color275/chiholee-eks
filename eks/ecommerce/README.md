@@ -6,6 +6,7 @@
     - [결과 확인](#결과-확인)
     - [ingress 관련 log](#ingress-관련-log)
     - [pods 관련 log](#pods-관련-log)
+    - [확인](#확인)
 
 
 
@@ -56,3 +57,10 @@ kubectl logs aws-load-balancer-controller-6ff97cb4c6-6wnm5  -n kube-system
 kubectl get pods --namespace ecommerce
 kubectl logs customer-7c7d9f6cd6-vgmrb --namespace ecommerce
 ```
+
+
+### 확인
+Node 방화벽 확인
+- my ip 방화벽 오픈
+- node -> rds 방화벽 오픈
+![](./img/2024-07-28-08-18-27.png)

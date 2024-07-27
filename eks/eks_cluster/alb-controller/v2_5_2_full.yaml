@@ -752,7 +752,7 @@ spec:
     spec:
       containers:
       - args:
-        - --cluster-name=ecommerce01
+        - --cluster-name=ecommerce02
         - --ingress-class=alb
         image: public.ecr.aws/eks/aws-load-balancer-controller:v2.5.2
         livenessProbe:

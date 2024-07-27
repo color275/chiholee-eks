@@ -25,7 +25,7 @@ k get ingress -n ecommerce
 
 ### Locust URL 확인/접속
 접속 오류 시 EKS Node Security Group 에 80 포트 방화벽 허용
-![](2024-07-25-11-24-35.png)
+![](./img/2024-07-25-11-24-35.png)
 ```bash
 k get ingress -n locust
 ```
@@ -33,6 +33,6 @@ k get ingress -n locust
 
 ### HOST 에 Application URL 입력 
 (http://k8s-product-xx-xx.ap-northeast-2.elb.amazonaws.com)
-![](2024-07-25-11-19-55.png)
-![](2024-07-25-11-22-51.png)
-![](2024-07-25-11-23-09.png)
+![](./img/2024-07-25-11-19-55.png)
+![](./img/2024-07-25-11-22-51.png)
+![](./img/2024-07-25-11-23-09.png)

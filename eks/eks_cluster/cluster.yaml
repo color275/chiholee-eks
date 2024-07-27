@@ -12,7 +12,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: ecommerce01
+  name: ecommerce02
   region: ap-northeast-2
   version: "1.26"
 
